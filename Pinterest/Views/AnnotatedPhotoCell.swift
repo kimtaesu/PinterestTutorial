@@ -52,5 +52,4 @@ class AnnotatedPhotoCell: UICollectionViewCell {
       }
     }
   }
-  
 }

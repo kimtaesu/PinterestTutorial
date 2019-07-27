@@ -31,7 +31,8 @@
 import UIKit
 import AVFoundation
 
-class PhotoStreamViewController: UICollectionViewController {
+class PhotoStreamViewController: UICollectionViewController, PinterestLayoutDelegate {
+  
   
   var photos = Photo.allPhotos()
   
@@ -41,13 +42,18 @@ class PhotoStreamViewController: UICollectionViewController {
   
   override func viewDidLoad() {
     super.viewDidLoad()
+    if let layout = collectionView?.collectionViewLayout as? PinterestLayout {
+      layout.delegate = self
+    }
     if let patternImage = UIImage(named: "Pattern") {
       view.backgroundColor = UIColor(patternImage: patternImage)
     }
     collectionView?.backgroundColor = .clear
     collectionView?.contentInset = UIEdgeInsets(top: 23, left: 16, bottom: 10, right: 16)
   }
-  
+  func collectionView(_ collectionView: UICollectionView, heightForPhotoAtIndexPath indexPath: IndexPath) -> CGFloat {
+    return photos[indexPath.item].image.size.height
+  }
 }
 
 extension PhotoStreamViewController: UICollectionViewDelegateFlowLayout {
